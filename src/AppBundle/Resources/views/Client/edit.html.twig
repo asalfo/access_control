@@ -1,0 +1,67 @@
+{% extends '::base.html.twig' %}
+
+
+    {% block body -%}
+        <div class="span12">
+            <div id="validation" class="widget highlight widget-form">
+
+                <div class="widget-header">
+                    <h3>
+                        <i class="icon-pencil"></i>
+                        Editar Cliente
+                    </h3>
+                </div>
+            </div>
+            <div class="widget-content">
+                <form action="{{ path('client_update', {'id':form.vars.value.id}) }}" method="post" id="client-form"  class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            {{ form_label(form.idCardType,'Tipo Documento:',{'label_attr': {'class': 'control-label'}}) }}
+                            <div class="controls">
+                                {{ form_errors(form.idCardType) }}
+                                {{ form_widget(form.idCardType) }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            {{ form_label(form.idCardNumber,'Nº Documento:',{'label_attr': {'class': 'control-label'}}) }}
+                            <div class="controls">
+                                {{ form_errors(form.idCardNumber) }}
+                                {{ form_widget(form.idCardNumber) }}
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            {{ form_label(form.name,'Nombre:',{'label_attr': {'class': 'control-label'}}) }}
+                            <div class="controls">
+                                {{ form_errors(form.name) }}
+                                {{ form_widget(form.name) }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            {{ form_label(form.surname,'Apellidos:',{'label_attr': {'class': 'control-label'}}) }}
+                            <div class="controls">
+                                {{ form_errors(form.surname) }}
+                                {{ form_widget(form.surname) }}
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            {{ form_label(form.birthdate,'Fecha de nacimiento:',{'label_attr': {'class': 'control-label'}}) }}
+                            <div class="controls">
+                                {{ form_errors(form.birthdate) }}
+                                {{ form_widget(form.birthdate,{'attr': {'class': 'input-medium','id':"datepicker-basic"}}) }}
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            {{ form_widget(form.submit,{'attr': {'class': 'btn btn-danger btn-large'}}) }}
+
+                            {{ form(form) }}
+
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+

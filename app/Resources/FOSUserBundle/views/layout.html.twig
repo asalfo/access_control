@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login - Access Control</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+    {% block stylesheets %}
+        {% stylesheets 'bundles/app/css/*' filter='cssrewrite'
+                       'bundles/app/css/components/signin.css' filter='cssrewrite'%}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts '@AppBundle/Resources/public/js/jquery-1.7.2.min.js'
+        '@AppBundle/Resources/public/js/bootstrap.js'
+        %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</head>
+
+<body>
+
+
+
+<div class="account-container login">
+
+    <div class="content clearfix">
+
+        {% block fos_user_content %}{% endblock %}
+
+    </div>
+
+</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="span12">
+
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <h3>
+                    <i class="icon-th-list"></i>
+                    Listado de clientes
+                </h3>
+                <div class="widget-actions">
+
+                    <a  href="{{ path('client_new') }}" class="btn btn-small btn-primary">Action Button</a>
+
+                </div>
+            </div> <!-- /widget-header -->
+
+            <div class="widget-content">
+
+
+
+
+                <table class="table table-striped table-bordered table-highlight" id="example">
+                    <thead>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Actions</th>
+                    </thead>
+                    <tbody>
+
+                    {% for entity in entities %}
+                        <tr class="even gradeC">
+                            <td>{{ entity.idCardNumber }}</td>
+                            <td>{{ entity.name }}</td>
+                            <td>{{ entity.surname }}</td>
+                            <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('client_show', { 'id': entity.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('client_edit', { 'id': entity.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div> <!-- /widget-content -->
+
+        </div> <!-- /widget -->
+
+    </div>
+    {% endblock %}
