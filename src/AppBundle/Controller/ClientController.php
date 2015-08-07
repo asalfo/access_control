@@ -53,7 +53,7 @@ class ClientController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('client_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('client_edit', array('id' => $entity->getId())));
         }
 
         return array(
@@ -76,8 +76,9 @@ class ClientController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-        $form->add('reset', 'reset', array('label' => 'Reset'));
+        $form->add('submit', 'submit', array('label' => 'Crear'));
+        $form->add('reset', 'reset', array('label' => 'Resetear'));
+        $form->add('back', 'back', array('label' => 'Volver'));
 
         return $form;
     }
@@ -136,17 +137,19 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Client')->find($id);
+        $client = $em->getRepository('AppBundle:Client')->find($id);
 
-        if (!$entity) {
+        if (!$client) {
             throw $this->createNotFoundException('Unable to find Client entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $memberships = $em->getRepository('AppBundle:Membership')->findByClient($client);
+        $editForm = $this->createEditForm($client);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity'      => $client,
+            'memberships' => $memberships,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -166,7 +169,8 @@ class ClientController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Actualizar'));
+
 
         return $form;
     }

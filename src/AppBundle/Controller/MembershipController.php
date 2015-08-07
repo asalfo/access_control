@@ -53,7 +53,7 @@ class MembershipController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('membership_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('client_edit', array('id' => $entity->getClient()->getId())));
         }
 
         return array(
@@ -146,7 +146,7 @@ class MembershipController extends Controller
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -162,7 +162,7 @@ class MembershipController extends Controller
     {
         $form = $this->createForm(new MembershipType(), $entity, array(
             'action' => $this->generateUrl('membership_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -173,7 +173,7 @@ class MembershipController extends Controller
      * Edits an existing Membership entity.
      *
      * @Route("/{id}", name="membership_update")
-     * @Method("PUT")
+     * @Method("POST")
      * @Template("AppBundle:Membership:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -193,7 +193,7 @@ class MembershipController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('membership_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('client_edit', array('id' => $entity->getClient()->getId())).'#suscripciones');
         }
 
         return array(

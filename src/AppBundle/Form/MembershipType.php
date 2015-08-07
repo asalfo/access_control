@@ -15,10 +15,18 @@ class MembershipType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type')
+            ->add('type','choice', array(
+                'choices'  => array(1 => 'Normal', '2' => 'Golden','3' =>'Platinium'),
+                'required' => true))
             ->add('cardNumber')
-            ->add('startDate')
-            ->add('endDate')
+            ->add('startDate','datetime', array(
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+            ))
+            ->add('endDate','datetime', array(
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+            ))
             ->add('client')
         ;
     }

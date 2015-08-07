@@ -49,6 +49,10 @@ class Client
         $this->memberships = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    public function __toString(){
+        return $this->getName().','.$this->getSurname();
+    }
     /**
      * Get id
      *
@@ -206,4 +210,7 @@ class Client
     {
         return $this->memberships;
     }
+
+
+
 }
