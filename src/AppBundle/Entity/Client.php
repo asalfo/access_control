@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ClientRepository")
  * @ORM\Table(name="client")
@@ -25,6 +26,7 @@ class Client
     protected $idCardType;
     /**
      * @Assert\NotBlank()
+     * @AppAssert\SpanishId
      * @ORM\Column(type="string", length=9, unique=true)
      */
     protected $idCardNumber;

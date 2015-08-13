@@ -184,14 +184,14 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Client')->find($id);
+        $client = $em->getRepository('AppBundle:Client')->find($id);
 
-        if (!$entity) {
+        if (!$client) {
             throw $this->createNotFoundException('Unable to find Client entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($client);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -199,10 +199,11 @@ class ClientController extends Controller
 
             return $this->redirect($this->generateUrl('client_edit', array('id' => $id)));
         }
-
+        $memberships = $em->getRepository('AppBundle:Membership')->findByClient($client);
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity'      => $client,
+            'memberships' => $memberships,
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

@@ -29,10 +29,10 @@ class AccessController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Access')->findAll();
+        $accesses = $em->getRepository('AppBundle:Access')->findTodayAccesses();
 
         return array(
-            'entities' => $entities,
+            'entities' => $accesses,
         );
     }
     /**

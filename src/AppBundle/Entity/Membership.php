@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  *  @ORM\Entity(repositoryClass="AppBundle\Entity\MembershipRepository")
  * @ORM\Table(name="membership")
@@ -29,10 +29,11 @@ class Membership
     protected $cardNumber;
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     protected $startDate;
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      */
     protected $endDate;
 
@@ -162,12 +163,13 @@ class Membership
     }
 
     public function isActive(){
-
+        if($this->getEndDate()){
         $today = new \DateTime("now");
-         if($this->getEndDate()->format('U') > $today->format('U')){
-             return 'Activo';
-         }else{
+         if( !($this->getEndDate()->format('U') > $today->format('U'))){
              return 'No activo';
          }
+        }
+        return 'Activo';
+
     }
 }

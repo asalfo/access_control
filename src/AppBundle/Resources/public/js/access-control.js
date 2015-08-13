@@ -75,3 +75,11 @@ $.validator.addMethod( "idES", function( value ) {
     return true;
 
 }, "Please specify a valid NIF number." );
+
+$( "#membership_form_type" ).change(function() {
+    if( $(this).val() == "2"){
+        $("#end-date").removeClass("hidden")
+    }else if( $(this).val() == "1"){
+        $("#end-date").addClass("hidden")
+    }
+});

@@ -79,7 +79,7 @@
 
                         <div class="widget-actions">
 
-                            <a  href="{{ path('membership_new') }}" class="btn btn-small btn-primary">Nueva Suscripción</a>
+                            <a  href="{{ path('membership_new',{'clientId':form.vars.value.id}) }}" class="btn btn-small btn-primary">Nueva Suscripción</a>
 
                         </div>
                     </div> <!-- /widget-header -->
@@ -100,7 +100,7 @@
                                 <td>{{ membership.type }}</td>
                                 <td>{{ membership.cardNumber }}</td>
                                 <td>{% if membership.startDate %}{{ membership.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                <td>{% if membership.endDate %}{{ membership.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                <td>{% if membership.endDate  %}{{ membership.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                                 <td>{{ membership.isActive }}</td>
                                 <td>
                                     <ul>
@@ -119,3 +119,30 @@
     </div>
 </div>
     {% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+
+        $().ready(function() {
+
+            var validator = $("#client-form").validate({
+
+                errorElement: "span",
+                errorContainer: $("#warning, #summary"),
+                errorPlacement: function(error, element) {
+                    // Append error within linked label
+                    $( element )
+                            .closest( "form" )
+                            .find( "label[for='" + element.attr( "id" ) + "']" )
+                            .append( error );
+                },
+                success: function(label) {
+                    /*label.text("ok!").addClass("success");*/
+                }
+            });
+            $("#client_idCardNumber").rules("add","idES");
+        });
+    </script>
+{% endblock %}

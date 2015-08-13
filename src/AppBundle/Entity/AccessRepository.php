@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class AccessRepository extends EntityRepository
 {
+    public function findTodayAccesses()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT a FROM AppBundle:Access a ORDER BY a.endDate DESC'
+            )
+            ->getResult();
+    }
 }

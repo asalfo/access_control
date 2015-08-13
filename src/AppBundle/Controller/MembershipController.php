@@ -84,17 +84,25 @@ class MembershipController extends Controller
     /**
      * Displays a form to create a new Membership entity.
      *
-     * @Route("/new", name="membership_new")
+     * @Route("/new/{clientId}", name="membership_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($clientId=null)
     {
-        $entity = new Membership();
-        $form   = $this->createCreateForm($entity);
+        $membership = new Membership();
+        if(null != $clientId){
+            $em = $this->getDoctrine()->getManager();
+            $client = $em->getRepository('AppBundle:Client')->find($clientId);
+
+            if ($client) {
+                $membership->setClient($client);
+            }
+        }
+        $form   = $this->createCreateForm($membership);
 
         return array(
-            'entity' => $entity,
+            'entity' => $membership,
             'form'   => $form->createView(),
         );
     }
@@ -198,7 +206,7 @@ class MembershipController extends Controller
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -255,17 +263,18 @@ class MembershipController extends Controller
     public function dataAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $card = $request->request->get('cardNumber');
-        $entity = $em->getRepository('AppBundle:Membership')->findOneByCardNumber($card);
+        $error = null;
+        $data = $request->request->get('access');
+        $entity = $em->getRepository('AppBundle:Membership')->findOneByCardNumber($data['cardNumber']);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Membership entity.');
+            $error = 'no se ha encontrado ningún socio.';
         }
 
 
         return array(
             'entity'      => $entity,
+            'error'       => $error
         );
     }
 }

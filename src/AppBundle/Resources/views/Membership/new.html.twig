@@ -40,14 +40,14 @@
                         {{ form_label(form.startDate,'Fecha inicio:',{'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_errors(form.startDate) }}
-                            {{ form_widget(form.startDate,{'attr': {'class': 'input-medium'}}) }}
+                            {{ form_widget(form.startDate) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div id="end-date" class="control-group hidden">
                         {{ form_label(form.endDate,'Fecha fin:',{'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_errors(form.endDate) }}
-                            {{ form_widget(form.endDate,{'attr': {'class': 'input-medium'}}) }}
+                            {{ form_widget(form.endDate) }}
                         </div>
                     </div>
                     <div class="form-actions">
@@ -60,3 +60,6 @@
         </div>
     </div>
 {% endblock %}
+
+
+

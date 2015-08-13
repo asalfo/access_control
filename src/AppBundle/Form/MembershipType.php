@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class MembershipType extends AbstractType
 {
@@ -14,20 +15,24 @@ class MembershipType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('type','choice', array(
-                'choices'  => array(1 => 'Normal', '2' => 'Golden','3' =>'Platinium'),
+                'choices'  => array(1 => 'Normal', '2' => 'VIP'),
                 'required' => true))
             ->add('cardNumber')
             ->add('startDate','datetime', array(
                 'input'  => 'datetime',
                 'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd HH:mm:ss'
             ))
             ->add('endDate','datetime', array(
                 'input'  => 'datetime',
                 'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd HH:mm:ss',
+                'required' => false
             ))
-            ->add('client')
+            ->add('client',null,array('read_only'=> true))
         ;
     }
     
@@ -46,6 +51,6 @@ class MembershipType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_membership';
+        return 'membership_form';
     }
 }
