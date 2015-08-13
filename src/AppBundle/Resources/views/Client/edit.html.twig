@@ -56,10 +56,10 @@
                             </div>
 
                             <div class="control-group">
-                                {{ form_label(form.birthdate,'Fecha de nacimiento:',{'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_label(form.email,'Email:',{'label_attr': {'class': 'control-label'}}) }}
                                 <div class="controls">
-                                    {{ form_errors(form.birthdate) }}
-                                    {{ form_widget(form.birthdate,{'attr': {'class': 'input-medium','id':"datepicker-basic"}}) }}
+                                    {{ form_errors(form.email) }}
+                                    {{ form_widget(form.email) }}
                                 </div>
                             </div>
                             <div class="form-actions">
@@ -86,10 +86,11 @@
                     <table class="table table-striped table-bordered table-highlight">
                         <thead>
                         <tr>
-                            <th>Type</th>
-                            <th>Cardnumber</th>
-                            <th>Startdate</th>
-                            <th>Enddate</th>
+                            <th>Suscripción</th>
+                            <th>Nº Socio</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha fin</th>
+                            <th>Estado</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -100,6 +101,7 @@
                                 <td>{{ membership.cardNumber }}</td>
                                 <td>{% if membership.startDate %}{{ membership.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                                 <td>{% if membership.endDate %}{{ membership.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                <td>{{ membership.isActive }}</td>
                                 <td>
                                     <ul>
                                         <li>

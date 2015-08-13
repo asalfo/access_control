@@ -45,10 +45,10 @@
             </div>
 
             <div class="control-group">
-                {{ form_label(form.birthdate,'Fecha de nacimiento:',{'label_attr': {'class': 'control-label'}}) }}
+                {{ form_label(form.email,'Email:',{'label_attr': {'class': 'control-label'}}) }}
                 <div class="controls">
-                    {{ form_errors(form.birthdate) }}
-                    {{ form_widget(form.birthdate,{'attr': {'class': 'input-medium'}}) }}
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email) }}
                 </div>
             </div>
             <div class="form-actions">
@@ -61,4 +61,33 @@
     </form>
 </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+<script>
+
+
+    $().ready(function() {
+
+        var validator = $("#client-form").validate({
+
+            debug: fale,
+            errorElement: "span",
+            errorContainer: $("#warning, #summary"),
+            errorPlacement: function(error, element) {
+                        // Append error within linked label
+                        $( element )
+                                .closest( "form" )
+                                .find( "label[for='" + element.attr( "id" ) + "']" )
+                                .append( error );
+                    },
+            success: function(label) {
+                /*label.text("ok!").addClass("success");*/
+            }
+        });
+        $("#client_idCardNumber").rules("add","idES");
+    });
+</script>
 {% endblock %}

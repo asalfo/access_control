@@ -1,0 +1,40 @@
+
+<div class="widget widget-accordion">
+
+    <div class="widget-header">
+
+        <h2><span>Nombre:</span> {{ entity.client }}, <span id="locker"></span></h2>
+    </div> <!-- /.widget-header -->
+
+    <div class="widget-content">
+        <div class="widget-header">
+            <h3>Taquillas</h3>
+        </div> <!-- /.widget-header -->
+        <div class="accordion">
+            <div class="accordion-group">
+                <div class="shortcuts">
+                {% for i in 0..45 %}
+
+                    <a id="{{ i }}" href="#" class="locker">
+                        <span class="shortcut-label"> {{ i }}</span>
+                    </a>
+                {% endfor %}
+                    </div>
+            </div>
+
+        </div>
+
+    </div> <!-- /.widget-content -->
+
+    <script>
+        $(document).ready(function() {
+
+
+            $( ".locker" ).click(function( event ) {
+                $( "#locker" ).html( "Taqilla Nº " + this.id );
+                $( "#appbundle_access_locker" ).val( this.id );
+            })
+
+
+        });
+    </script>

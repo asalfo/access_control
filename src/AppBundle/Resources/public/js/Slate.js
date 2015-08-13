@@ -45,41 +45,7 @@ var Slate = function () {
 		}
 	}
 	
-	function bindNavEvents () {
-		
-		var msie8 = $.browser.version === '8.0' && $.browser.msie;
-		
-		if (!msie8) {
-			$(window).bind ('scroll', navScroll);
-		}
-				
-		$('#info-trigger').live ('click', function (e) {
-			
-			e.preventDefault ();
-			
-			$('#info-menu').toggleClass ('toggle-menu-show');
-			
-			$(document).bind ('click.info', function (e) {
-				
-				if ($(e.target).is ('#info-menu')) { return false; }
-				
-				if ($(e.target).parents ('#info-menu').length == 1) { return false; }
-				
-				$('#info-menu').removeClass ('toggle-menu-show');
-				
-				$(document).unbind ('click.info');
-				
-			});
-			
-		});
-	}
-	
-	function navScroll () {
-		var p = $(window).scrollTop ();
-		
-		((p)>navTop) ? $('body').addClass ('nav-fixed') : $('body').removeClass ('nav-fixed');
-		
-	}
+
 	
 	function bindWidgetEvents () {
 		$('.widget-tabs .nav-tabs a').live ('click', widgetTabClickHandler);

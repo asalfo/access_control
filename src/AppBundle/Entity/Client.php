@@ -4,6 +4,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ClientRepository")
  * @ORM\Table(name="client")
@@ -17,30 +18,44 @@ class Client
      */
     protected $id;
     /**
+     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer")
      */
     protected $idCardType;
     /**
-     * @ORM\Column(type="string", length=9)
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=9, unique=true)
      */
     protected $idCardNumber;
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=100)
      */
     protected $surname;
+
     /**
-     * @ORM\Column(type="datetime")
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
-    protected $birthdate;
+    protected $email;
 
     /**
      * @ORM\OneToMany(targetEntity="Membership", mappedBy="client")
      */
     protected $memberships;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Access", mappedBy="client")
+     */
+    protected $access;
     /**
      * Constructor
      */
@@ -155,28 +170,7 @@ class Client
         return $this->surname;
     }
 
-    /**
-     * Set birthdate
-     *
-     * @param \DateTime $birthdate
-     * @return Client
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
 
-        return $this;
-    }
-
-    /**
-     * Get birthdate
-     *
-     * @return \DateTime 
-     */
-    public function getBirthdate()
-    {
-        return $this->birthdate;
-    }
 
     /**
      * Add memberships
@@ -213,4 +207,60 @@ class Client
 
 
 
+
+    /**
+     * Add access
+     *
+     * @param \AppBundle\Entity\Access $access
+     * @return Client
+     */
+    public function addAccess(\AppBundle\Entity\Access $access)
+    {
+        $this->access[] = $access;
+
+        return $this;
+    }
+
+    /**
+     * Remove access
+     *
+     * @param \AppBundle\Entity\Access $access
+     */
+    public function removeAccess(\AppBundle\Entity\Access $access)
+    {
+        $this->access->removeElement($access);
+    }
+
+    /**
+     * Get access
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Client
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 }

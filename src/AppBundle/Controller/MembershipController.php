@@ -244,4 +244,28 @@ class MembershipController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Finds and displays a Membership entity.
+     *
+     * @Route("/member/data", name="membership_data")
+     * @Method("POST")
+     * @Template()
+     */
+    public function dataAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $card = $request->request->get('cardNumber');
+        $entity = $em->getRepository('AppBundle:Membership')->findOneByCardNumber($card);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Membership entity.');
+        }
+
+
+        return array(
+            'entity'      => $entity,
+        );
+    }
 }

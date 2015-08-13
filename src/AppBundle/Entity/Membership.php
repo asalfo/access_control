@@ -160,4 +160,14 @@ class Membership
     {
         return $this->client;
     }
+
+    public function isActive(){
+
+        $today = new \DateTime("now");
+         if($this->getEndDate()->format('U') > $today->format('U')){
+             return 'Activo';
+         }else{
+             return 'No activo';
+         }
+    }
 }

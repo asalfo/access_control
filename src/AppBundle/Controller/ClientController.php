@@ -78,7 +78,6 @@ class ClientController extends Controller
 
         $form->add('submit', 'submit', array('label' => 'Crear'));
         $form->add('reset', 'reset', array('label' => 'Resetear'));
-        $form->add('back', 'back', array('label' => 'Volver'));
 
         return $form;
     }

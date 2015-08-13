@@ -108,14 +108,15 @@
 
         </div> <!-- /#footer -->
         {% block javascripts %}
-            {% javascripts '@AppBundle/Resources/public/js/jquery-1.7.2.min.js'
+            {% javascripts '@AppBundle/Resources/public/js/jquery-1.11.1.js'
             '@AppBundle/Resources/public/js/jquery-ui-1.8.21.custom.min.js'
+            '@AppBundle/Resources/public/js/plugins/jquery.validate.js'
+            '@AppBundle/Resources/public/js/access-control.js'
             '@AppBundle/Resources/public/js/bootstrap.js'
             '@AppBundle/Resources/public/js/demos/demo.tables.js'
             '@AppBundle/Resources/public/js/plugins/datatables/jquery.dataTables.js'
             '@AppBundle/Resources/public/js/plugins/datatables/DT_bootstrap.js'
             '@AppBundle/Resources/public/js/demos/demo-ui-elements.js'
-            '@AppBundle/Resources/public/js/Slate.js'
 
             %}
             <script src="{{ asset_url }}"></script>

@@ -1233,7 +1233,7 @@ border-top: 1px solid #292C32;
 }
 
 
-
+.widget-form .form fieldset div label span.error { color: red; }
 
 
 

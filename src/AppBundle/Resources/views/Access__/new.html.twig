@@ -1,0 +1,59 @@
+
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="span12">
+        <div id="validation" class="widget highlight widget-form">
+
+            <div class="widget-header">
+                <h3>
+                    <i class="icon-pencil"></i>
+                    Nueva Suscripción
+                </h3>
+            </div>
+        </div>
+        <div class="widget-content">
+            <form action="{{ path('membership_create') }}" method="post" id="cardNumber"  class="form-horizontal">
+                <fieldset>
+                    <div class="control-group">
+
+                        <label class="control-label required" for="appbundle_membership_cardNumber">Nº Socio:</label>
+                        <div class="controls">
+
+                            <input id="appbundle_membership_cardNumber" name="cardNumber" required="required" maxlength="100" value="45112411444" type="text">
+                        </div>
+
+                    </div>
+                    <div class="control-group">
+
+                        <label class="control-label required" for="appbundle_membership_cardNumber">Taquilla:</label>
+                        <div class="controls">
+
+                            <input id="appbundle_access_locker" name="locker" required="required" maxlength="100" value="" type="text">
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </form>
+        </div>
+        <div id="result"></div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+
+
+        $( "#appbundle_membership_cardNumber" ).focusout(function( event ) {
+            $.post( "{{ path("membership_data") }}",$( "#cardNumber" ).serialize(), function( data ) {
+                $( "#result" ).html( data );
+            });
+        })
+
+
+        });
+    </script>
+{% endblock %}
