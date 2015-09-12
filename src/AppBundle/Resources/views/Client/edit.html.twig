@@ -1,0 +1,148 @@
+{% extends '::base.html.twig' %}
+
+
+    {% block body -%}
+<div class="span12">
+    <div id="validation" class="widget highlight widget-form">
+
+        <div class="widget-header">
+            <h3>
+                <i class="icon-pencil"></i>
+                Editar Cliente
+            </h3>
+            <a href="{{ path('client') }}" class="btn btn-small btn-primary">Listado</a>
+        </div>
+    </div>
+    <div class="widget-content">
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#client-data" data-toggle="tab">Datos</a></li>
+                <li><a href="#suscripciones" data-toggle="tab">Suscripciones</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="client-data">
+                    <form action="{{ path('client_update', {'id':form.vars.value.id}) }}" method="post" id="client-form"
+                          class="form-horizontal">
+                        <fieldset>
+                            <div class="control-group">
+                                {{ form_label(form.idCardType,'Tipo Documento:',{'label_attr': {'class': 'control-label'}}) }}
+                                <div class="controls">
+                                    {{ form_errors(form.idCardType) }}
+                                    {{ form_widget(form.idCardType) }}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                {{ form_label(form.idCardNumber,'Nº Documento:',{'label_attr': {'class': 'control-label'}}) }}
+                                <div class="controls">
+                                    {{ form_errors(form.idCardNumber) }}
+                                    {{ form_widget(form.idCardNumber) }}
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                {{ form_label(form.name,'Nombre:',{'label_attr': {'class': 'control-label'}}) }}
+                                <div class="controls">
+                                    {{ form_errors(form.name) }}
+                                    {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                {{ form_label(form.surname,'Apellidos:',{'label_attr': {'class': 'control-label'}}) }}
+                                <div class="controls">
+                                    {{ form_errors(form.surname) }}
+                                    {{ form_widget(form.surname) }}
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                {{ form_label(form.email,'Email:',{'label_attr': {'class': 'control-label'}}) }}
+                                <div class="controls">
+                                    {{ form_errors(form.email) }}
+                                    {{ form_widget(form.email) }}
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                {{ form_widget(form.submit,{'attr': {'class': 'btn  btn-large'}}) }}
+                                <a href="{{ path('client') }}" class="btn  btn-large"
+                                   title="Volver al listado">Volver</a>
+
+                                {{ form(form) }}
+
+                            </div>
+                        </fieldset>
+
+                    </form>
+                </div>
+                <div class="tab-pane" id="suscripciones">
+                    <div class="widget-header">
+
+                        <div class="widget-actions">
+
+                            <a  href="{{ path('membership_new',{'clientId':form.vars.value.id}) }}" class="btn btn-small btn-primary">Nueva Suscripción</a>
+
+                        </div>
+                    </div> <!-- /widget-header -->
+                    <table class="table table-striped table-bordered table-highlight">
+                        <thead>
+                        <tr>
+                            <th>Suscripción</th>
+                            <th>Nº Socio</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha fin</th>
+                            <th>Estado</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for membership in memberships %}
+                            <tr>
+                                <td>{{ membership.type }}</td>
+                                <td>{{ membership.cardNumber }}</td>
+                                <td>{% if membership.startDate %}{{ membership.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                <td>{% if membership.endDate  %}{{ membership.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                <td>{{ membership.isActive }}</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('membership_edit', { 'id': membership.id }) }}">edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+
+        $().ready(function() {
+
+            var validator = $("#client-form").validate({
+
+                errorElement: "span",
+                errorContainer: $("#warning, #summary"),
+                errorPlacement: function(error, element) {
+                    // Append error within linked label
+                    $( element )
+                            .closest( "form" )
+                            .find( "label[for='" + element.attr( "id" ) + "']" )
+                            .append( error );
+                },
+                success: function(label) {
+                    /*label.text("ok!").addClass("success");*/
+                }
+            });
+            $("#client_idCardNumber").rules("add","idES");
+        });
+    </script>
+{% endblock %}

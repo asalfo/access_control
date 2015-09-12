@@ -1,0 +1,92 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<div class="span12">
+<div id="validation" class="widget highlight widget-form">
+
+    <div class="widget-header">
+        <h3>
+            <i class="icon-pencil"></i>
+            Nuevo Cliente
+        </h3>
+    </div>
+    </div>
+<div class="widget-content">
+    <form action="{{ path('client_create') }}" method="post" id="client-form"  class="form-horizontal">
+        <fieldset>
+            <div class="control-group">
+                {{ form_label(form.idCardType,'Tipo Documento:',{'label_attr': {'class': 'control-label'}}) }}
+                <div class="controls">
+                    {{ form_errors(form.idCardType) }}
+                    {{ form_widget(form.idCardType) }}
+                </div>
+            </div>
+            <div class="control-group">
+                {{ form_label(form.idCardNumber,'Nº Documento:',{'label_attr': {'class': 'control-label'}}) }}
+                <div class="controls">
+                    {{ form_errors(form.idCardNumber) }}
+                    {{ form_widget(form.idCardNumber) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                {{ form_label(form.name,'Nombre:',{'label_attr': {'class': 'control-label'}}) }}
+                <div class="controls">
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="control-group">
+                {{ form_label(form.surname,'Apellidos:',{'label_attr': {'class': 'control-label'}}) }}
+                <div class="controls">
+                    {{ form_errors(form.surname) }}
+                    {{ form_widget(form.surname) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                {{ form_label(form.email,'Email:',{'label_attr': {'class': 'control-label'}}) }}
+                <div class="controls">
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+            </div>
+            <div class="form-actions">
+                {{ form_widget(form.submit,{'attr': {'class': 'btn btn-danger btn-large'}}) }}
+                {{ form_widget(form.reset,{'attr': {'class': 'btn btn-large'}}) }}
+                {{ form(form) }}
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+<script>
+
+
+    $().ready(function() {
+
+        var validator = $("#client-form").validate({
+
+            errorElement: "span",
+            errorContainer: $("#warning, #summary"),
+            errorPlacement: function(error, element) {
+                        // Append error within linked label
+                        $( element )
+                                .closest( "form" )
+                                .find( "label[for='" + element.attr( "id" ) + "']" )
+                                .append( error );
+                    },
+            success: function(label) {
+                /*label.text("ok!").addClass("success");*/
+            }
+        });
+        $("#client_idCardNumber").rules("add","idES");
+    });
+</script>
+{% endblock %}

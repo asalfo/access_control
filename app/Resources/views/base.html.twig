@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets 'bundles/app/css/*' filter='cssrewrite'
+            'bundles/app/css/pages/dashboard.css' filter='cssrewrite'
+            'bundles/app/js/plugins/datatables/DT_bootstrap.css' filter='cssrewrite'
+            'bundles/app/css/ui-lightness/jquery-ui-1.8.21.custom.css' filter='cssrewrite'
+            'bundles/app/js/plugins/timepicker/jquery.ui.timepicker.css' filter='cssrewrite'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+
+    <div id="header">
+
+        <div class="container">
+
+            <h1><a href="./">Access Control </a></h1>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+            <div id="info">
+
+                <a href="javascript:;" id="info-trigger">
+                    <i class="icon-cog"></i>
+                </a>
+
+                <div id="info-menu">
+
+                    <div class="info-details">
+
+                        <h4>Welcome back,{{ app.user.username }}</h4>
+
+                        <p>
+                            Logged in as Admin.
+
+                        </p>
+
+                    </div>
+
+                    <div class="info-avatar">
+
+                        {% image '@AppBundle/Resources/public/img/avatar.jpg' %}
+                        <img src="{{ asset_url }}" alt="avatar" />
+                        {% endimage %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div id="nav">
+
+        <div class="container">
+
+            <a href="javascript:;" class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-reorder"></i>
+            </a>
+
+            <div class="nav-collapse">
+
+                <ul class="nav">
+
+                    <li class="nav-icon active">
+                        <a href="./">
+                            <i class="icon-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div> <!-- /#nav -->
+    <div id="content">
+
+        <div class="container">
+
+            <div class="row">
+                {% block body %} {% endblock %}
+            </div>
+
+        </div>
+
+    </div> <!-- /#content -->
+        <div id="footer">
+
+            <div class="container">
+
+                &copy; 2015 ,all rights reserved.
+
+            </div> <!-- /.container -->
+
+        </div> <!-- /#footer -->
+        {% block javascripts %}
+            {% javascripts '@AppBundle/Resources/public/js/jquery-1.7.2.min.js'
+            '@AppBundle/Resources/public/js/jquery-ui-1.8.21.custom.min.js'
+            '@AppBundle/Resources/public/js/plugins/jquery.validate.js'
+            '@AppBundle/Resources/public/js/access-control.js'
+            '@AppBundle/Resources/public/js/bootstrap.js'
+            '@AppBundle/Resources/public/js/demos/demo.tables.js'
+            '@AppBundle/Resources/public/js/plugins/datatables/jquery.dataTables.js'
+            '@AppBundle/Resources/public/js/plugins/datatables/DT_bootstrap.js'
+            '@AppBundle/Resources/public/js/demos/demo-ui-elements.js'
+
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>

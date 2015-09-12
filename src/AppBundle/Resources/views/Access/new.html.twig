@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="span12">
+        <div id="validation" class="widget highlight widget-form">
+
+            <div class="widget-header">
+                <h3>
+                    <i class="icon-pencil"></i>
+                    Nueva Suscripción
+                </h3>
+            </div>
+        </div>
+        <div class="widget-content">
+            <form action="{{ path('membership_create') }}" method="post" id="cardNumber"  class="form-horizontal">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label required" for="access_cardNumber">Nº Socio:</label>
+                        <div class="controls">
+                            <input id="access_cardNumber" name="access[cardNumber]" required="required" maxlength="100"  type="text">
+                        </div>
+                    </div>
+                    <div id="result"></div>
+                    <div class="control-group hidden">
+
+                        <label class="control-label required" for="access_locker">Taquilla:</label>
+                        <div class="controls">
+
+                            <input id="access_locker" name="access[locker]" required="required" maxlength="100" value="" type="text">
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+
+
+            $( "#access_cardNumber" ).focusout(function( event ) {
+                $.post( "{{ path("membership_data") }}",$( "#cardNumber" ).serialize(), function( data ) {
+                    $( "#result" ).html( data );
+                });
+            })
+
+        });
+    </script>
+{% endblock %}
+

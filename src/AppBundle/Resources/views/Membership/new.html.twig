@@ -1,0 +1,65 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="span12">
+        <div id="validation" class="widget highlight widget-form">
+
+            <div class="widget-header">
+                <h3>
+                    <i class="icon-pencil"></i>
+                    Nueva Suscripción
+                </h3>
+            </div>
+        </div>
+        <div class="widget-content">
+            <form action="{{ path('membership_create') }}" method="post" id="client-form"  class="form-horizontal">
+                <fieldset>
+                    <div class="control-group">
+                        {{ form_label(form.client,'Cliente:',{'label_attr': {'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_errors(form.client) }}
+                            {{ form_widget(form.client) }}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{ form_label(form.type,'Tipo Suscripción:',{'label_attr': {'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_errors(form.type) }}
+                            {{ form_widget(form.type) }}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        {{ form_label(form.cardNumber,'Nº Socio:',{'label_attr': {'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_errors(form.cardNumber) }}
+                            {{ form_widget(form.cardNumber) }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        {{ form_label(form.startDate,'Fecha inicio:',{'label_attr': {'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_errors(form.startDate) }}
+                            {{ form_widget(form.startDate) }}
+                        </div>
+                    </div>
+                    <div id="end-date" class="control-group hidden">
+                        {{ form_label(form.endDate,'Fecha fin:',{'label_attr': {'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_errors(form.endDate) }}
+                            {{ form_widget(form.endDate) }}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        {{ form_widget(form.submit,{'attr': {'class': 'btn btn-danger btn-large'}}) }}
+                        {{ form(form) }}
+                    </div>
+                </fieldset>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+

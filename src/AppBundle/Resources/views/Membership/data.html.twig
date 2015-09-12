@@ -1,0 +1,14 @@
+
+<div class="widget">
+    {% if entity is defined and entity is not empty %}
+    <div class="widget-header">
+        <h2><span>Nombre:</span> {{ entity.client }}({{ entity.cardNumber }})</h2>
+    </div>
+    {% else %}
+    <div class="widget-header">
+        <h3><span>{{ error }}</span></h3>
+    </div>
+    {% endif %}
+
+ </div>
+
